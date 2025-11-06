@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Métricas da Comunidade - Primeiros 30 Dias</title>
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Cor de fundo suave */
+        }
+        /* Estilos para o ícone de lista, garantindo boa aparência em todos os blocos */
+        .metric-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .metric-list li::before {
+            content: '👉'; /* Ícone visualmente agradável */
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5; /* Cor do acento */
+        }
+        /* Classe para destacar o título de cada métrica */
+        .metric-title {
+            font-weight: 600; /* Semi-bold */
+            color: #1f2937; /* Cinza escuro */
+            display: block;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Container Principal -->
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Título Principal e Contexto -->
+        <header class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-600">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                Performance da Comunidade nos Primeiros 30 Dias (Circle)
+            </h1>
+            <p class="text-lg text-gray-600">
+                Foco principal: <span class="font-semibold text-indigo-600">ativação, engajamento inicial e percepção de valor</span> dos novos membros.
+            </p>
+            <p class="mt-4 text-sm text-gray-500 italic">
+                A análise se baseia nas funcionalidades da plataforma Circle e nos objetivos de Onboarding e Engajamento da Articula.
+            </p>
+        </header>
+
+        <!-- Container das 4 Principais Categorias de Métricas (Grid Responsivo) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- BLOCO 1: Taxa de Ativação e Onboarding -->
+            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-emerald-500 transition hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-emerald-700 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.111a9 9 0 11-12.628 12.628A9 9 0 0120.5 5.889z"></path></svg>
+                    1. Taxa de Ativação e Onboarding
+                </h2>
+                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
+                    Indica a eficácia da integração inicial dos novos membros.
+                </p>
+
+                <ul class="metric-list text-gray-700 text-base">
+                    <li>
+                        <span class="metric-title">Membros que Concluíram o "Comece por Aqui" (%):</span>
+                        <span class="text-gray-500 block text-sm">Monitorar visualizações do espaço ou confirmações de "eu aceito" nos comentários (indicador de recebimento de informações essenciais).</span>
+                    </li>
+                    <li>
+                        <span class="metric-title">Membros que se Apresentaram (%):</span>
+                        <span class="text-gray-500 block text-sm">Contagem de posts de apresentação no espaço dedicado (Primeiro passo para conexão e engajamento proativo).</span>
+                    </li>
+                    <li>
+                        <span class="metric-title">Participação no Encontro de Onboarding ao Vivo:</span>
+                        <span class="text-gray-500 block text-sm">Número de membros que compareceram à reunião de boas-vindas (Demonstra interesse em se aprofundar na comunidade).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- BLOCO 2: Engajamento Inicial na Plataforma -->
+            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-pink-500 transition hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-pink-700 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.677A9.953 9.953 0 0112 4.058h.008z"></path></svg>
+                    2. Engajamento Inicial na Plataforma
+                </h2>
+                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
+                    Sinais de que os membros estão interagindo com conteúdo e outros pares (colaboração e proatividade).
+                </p>
+
+                <ul class="metric-list text-gray-700 text-base">
+                    <li>
+                        <span class="metric-title">Membros Ativos Diários (DAU) / Semanais (WAU) e %:</span>
+                        <span class="text-gray-500 block text-sm">Usuários únicos que acessam a Circle regularmente (Métrica fundamental de saúde e recorrência).</span>
+                    </li>
+                    <li>
+                        <span class="metric-title">Número de Novos Posts Criados pelos Membros:</span>
+                        <span class="text-gray-500 block text-sm">Tópicos iniciados pelos próprios membros (Forte sinal de autossustentabilidade do conteúdo).</span>
+                    </li>
+                    <li>
+                        <span class="metric-title">Média de Interações por Membro Ativo (Comentários, Reações):</span>
+                        <span class="text-gray-500 block text-sm">Mede a profundidade do engajamento e a troca mútua (Profundidade do apoio).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- BLOCO 3: Consumo de Conteúdo Essencial -->
+            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-yellow-500 transition hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0h5.5l-2.5-12.5-7.5 7.5 12.5 2.5z"></path></svg>
+                    3. Consumo de Conteúdo Essencial
+                </h2>
+                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
+                    Verifica se os membros estão utilizando os "entregáveis" mais valiosos da comunidade.
+                </p>
+
+                <ul class="metric-list text-gray-700 text-base">
+                    <li>
+                        <span class="metric-title">Visualizações dos Principais Conteúdos:</span>
+                        <span class="text-gray-500 block text-sm">Aulas introdutórias, "Banco de Preços" e outros entregáveis chave (Demonstra valor prático sendo encontrado).</span>
+                    </li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-yellow-700 mb-4 mt-8 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M12 20.005v-2.193M21 20.005a9 9 0 10-18 0h18z"></path></svg>
+                    4. Crescimento da Base de Membros
+                </h2>
+                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
+                    Ponto de partida e sucesso inicial das estratégias de aquisição.
+                </p>
+                <ul class="metric-list text-gray-700 text-base">
+                    <li>
+                        <span class="metric-title">Total de Novos Membros (primeiros 30 dias):</span>
+                        <span class="text-gray-500 block text-sm">Número total de assinantes desde o lançamento (Base para todas as outras métricas).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- BLOCO 4: Resumo e Foco para a Liderança (Full Width) -->
+            <div class="lg:col-span-2 bg-indigo-50 p-6 rounded-xl shadow-xl border-l-4 border-indigo-600 transition hover:shadow-2xl">
+                <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v14L9 19z"></path></svg>
+                    Resumo para a Liderança
+                </h2>
+                <p class="text-gray-700 mb-4">
+                    Ao apresentar os resultados, o foco deve ser nas evidências de que a Articula está entregando sua promessa de "fortalecer artistas como profissionais, criando um espaço seguro e potente".
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
+                        <h3 class="font-bold text-indigo-800 mb-1">Visão Geral do Onboarding</h3>
+                        <p class="text-sm text-gray-700">Demonstre quantos membros foram bem-sucedidos em seus primeiros passos e entenderam as regras da comunidade.</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
+                        <h3 class="font-bold text-indigo-800 mb-1">Sinais de Engajamento</h3>
+                        <p class="text-sm text-gray-700">Destaque que os membros não estão apenas entrando, mas também interagindo ativamente (vital para o "lugar seguro e colaborativo").</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
+                        <h3 class="font-bold text-indigo-800 mb-1">Utilização do Valor</h3>
+                        <p class="text-sm text-gray-700">Apresente dados que confirmam que os "entregáveis" chave (como o Banco de Preços) estão sendo consumidos e gerando valor prático.</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
+                        <h3 class="font-bold text-indigo-800 mb-1">Crescimento da Base</h3>
+                        <p class="text-sm text-gray-700">O tamanho inicial da comunidade é a base que valida as estratégias de lançamento e aquisição.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> <!-- Fim do Container Grid -->
+
+    </div> <!-- Fim do Container Principal -->
+
+</body>
+</html>
