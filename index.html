@@ -3,176 +3,682 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Métricas da Comunidade - Primeiros 30 Dias</title>
-    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Dashboard da Comunidade | 06/11/2025</title>
     <style>
-        /* Define a fonte Inter como padrão */
+        :root {
+            --primary: #6C5CE7;
+            --primary-light: #A29BFE;
+            --secondary: #00CEC9;
+            --dark: #2D3436;
+            --gray-dark: #636E72;
+            --gray: #DFE6E9;
+            --gray-light: #F9F9F9;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc; /* Cor de fundo suave */
+            background-color: var(--gray-light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 24px;
         }
-        /* Estilos para o ícone de lista, garantindo boa aparência em todos os blocos */
-        .metric-list li {
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .metric-list li::before {
-            content: '👉'; /* Ícone visualmente agradável */
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #4f46e5; /* Cor do acento */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray);
         }
-        /* Classe para destacar o título de cada métrica */
-        .metric-title {
-            font-weight: 600; /* Semi-bold */
-            color: #1f2937; /* Cinza escuro */
-            display: block;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .date {
+            color: var(--gray-dark);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .icon-overview {
+            background: var(--primary);
+        }
+
+        .icon-members {
+            background: var(--secondary);
+        }
+
+        .icon-site {
+            background: #636E72;
+        }
+
+        .icon-spaces {
+            background: #FD79A8;
+        }
+
+        .icon-content {
+            background: #FDCB6E;
+        }
+
+        .icon-messages {
+            background: #74B9FF;
+        }
+
+        .icon-devices {
+            background: #00B894;
+        }
+
+        .icon-events {
+            background: #E17055;
+        }
+
+        .icon-payments {
+            background: #A29BFE;
+        }
+
+        .icon-courses {
+            background: #FD79A8;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--gray-dark);
+            margin-top: 4px;
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        .analysis-list {
+            list-style: none;
+        }
+
+        .analysis-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+
+        .analysis-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            color: var(--dark);
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: var(--gray);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--gray-dark);
+        }
+
+        .device-list {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+
+        .device-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .device-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .device-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .device-label {
+            font-size: 14px;
+            color: var(--gray-dark);
+            margin-top: 4px;
+        }
+
+        .card-number {
+            font-size: 14px;
+            color: var(--gray-dark);
+            margin-right: 8px;
+        }
+
+        .status-message {
+            background: var(--gray);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray-dark);
+            border-left: 4px solid var(--gray-dark);
+        }
+
+        .status-warning {
+            background: #FFF9E6;
+            border-left: 4px solid #FDCB6E;
+            color: #8C7C0D;
+        }
+
+        .status-info {
+            background: #E6F7FF;
+            border-left: 4px solid #74B9FF;
+            color: #0D6C8C;
+        }
+
+        .status-na {
+            background: #F8F9FA;
+            border-left: 4px solid #DFE6E9;
+            color: #636E72;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .device-list {
+                flex-direction: column;
+                gap: 16px;
+            }
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
-
-    <!-- Container Principal -->
-    <div class="max-w-6xl mx-auto space-y-8">
-
-        <!-- Título Principal e Contexto -->
-        <header class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-600">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">
-                Performance da Comunidade nos Primeiros 30 Dias (Circle)
-            </h1>
-            <p class="text-lg text-gray-600">
-                Foco principal: <span class="font-semibold text-indigo-600">ativação, engajamento inicial e percepção de valor</span> dos novos membros.
-            </p>
-            <p class="mt-4 text-sm text-gray-500 italic">
-                A análise se baseia nas funcionalidades da plataforma Circle e nos objetivos de Onboarding e Engajamento da Articula.
-            </p>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">C</div>
+                <h1>Dashboard da Comunidade</h1>
+            </div>
+            <div class="date">Posição em: 06/11/2025</div>
         </header>
 
-        <!-- Container das 4 Principais Categorias de Métricas (Grid Responsivo) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <!-- BLOCO 1: Taxa de Ativação e Onboarding -->
-            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-emerald-500 transition hover:shadow-2xl">
-                <h2 class="text-2xl font-bold text-emerald-700 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.111a9 9 0 11-12.628 12.628A9 9 0 0120.5 5.889z"></path></svg>
-                    1. Taxa de Ativação e Onboarding
-                </h2>
-                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
-                    Indica a eficácia da integração inicial dos novos membros.
-                </p>
-
-                <ul class="metric-list text-gray-700 text-base">
-                    <li>
-                        <span class="metric-title">Membros que Concluíram o "Comece por Aqui" (%):</span>
-                        <span class="text-gray-500 block text-sm">Monitorar visualizações do espaço ou confirmações de "eu aceito" nos comentários (indicador de recebimento de informações essenciais).</span>
-                    </li>
-                    <li>
-                        <span class="metric-title">Membros que se Apresentaram (%):</span>
-                        <span class="text-gray-500 block text-sm">Contagem de posts de apresentação no espaço dedicado (Primeiro passo para conexão e engajamento proativo).</span>
-                    </li>
-                    <li>
-                        <span class="metric-title">Participação no Encontro de Onboarding ao Vivo:</span>
-                        <span class="text-gray-500 block text-sm">Número de membros que compareceram à reunião de boas-vindas (Demonstra interesse em se aprofundar na comunidade).</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- BLOCO 2: Engajamento Inicial na Plataforma -->
-            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-pink-500 transition hover:shadow-2xl">
-                <h2 class="text-2xl font-bold text-pink-700 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.677A9.953 9.953 0 0112 4.058h.008z"></path></svg>
-                    2. Engajamento Inicial na Plataforma
-                </h2>
-                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
-                    Sinais de que os membros estão interagindo com conteúdo e outros pares (colaboração e proatividade).
-                </p>
-
-                <ul class="metric-list text-gray-700 text-base">
-                    <li>
-                        <span class="metric-title">Membros Ativos Diários (DAU) / Semanais (WAU) e %:</span>
-                        <span class="text-gray-500 block text-sm">Usuários únicos que acessam a Circle regularmente (Métrica fundamental de saúde e recorrência).</span>
-                    </li>
-                    <li>
-                        <span class="metric-title">Número de Novos Posts Criados pelos Membros:</span>
-                        <span class="text-gray-500 block text-sm">Tópicos iniciados pelos próprios membros (Forte sinal de autossustentabilidade do conteúdo).</span>
-                    </li>
-                    <li>
-                        <span class="metric-title">Média de Interações por Membro Ativo (Comentários, Reações):</span>
-                        <span class="text-gray-500 block text-sm">Mede a profundidade do engajamento e a troca mútua (Profundidade do apoio).</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- BLOCO 3: Consumo de Conteúdo Essencial -->
-            <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-yellow-500 transition hover:shadow-2xl">
-                <h2 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0h5.5l-2.5-12.5-7.5 7.5 12.5 2.5z"></path></svg>
-                    3. Consumo de Conteúdo Essencial
-                </h2>
-                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
-                    Verifica se os membros estão utilizando os "entregáveis" mais valiosos da comunidade.
-                </p>
-
-                <ul class="metric-list text-gray-700 text-base">
-                    <li>
-                        <span class="metric-title">Visualizações dos Principais Conteúdos:</span>
-                        <span class="text-gray-500 block text-sm">Aulas introdutórias, "Banco de Preços" e outros entregáveis chave (Demonstra valor prático sendo encontrado).</span>
-                    </li>
-                </ul>
-
-                <h2 class="text-2xl font-bold text-yellow-700 mb-4 mt-8 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M12 20.005v-2.193M21 20.005a9 9 0 10-18 0h18z"></path></svg>
-                    4. Crescimento da Base de Membros
-                </h2>
-                <p class="text-gray-600 mb-4 border-b pb-3 text-sm italic">
-                    Ponto de partida e sucesso inicial das estratégias de aquisição.
-                </p>
-                <ul class="metric-list text-gray-700 text-base">
-                    <li>
-                        <span class="metric-title">Total de Novos Membros (primeiros 30 dias):</span>
-                        <span class="text-gray-500 block text-sm">Número total de assinantes desde o lançamento (Base para todas as outras métricas).</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- BLOCO 4: Resumo e Foco para a Liderança (Full Width) -->
-            <div class="lg:col-span-2 bg-indigo-50 p-6 rounded-xl shadow-xl border-l-4 border-indigo-600 transition hover:shadow-2xl">
-                <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v14L9 19z"></path></svg>
-                    Resumo para a Liderança
-                </h2>
-                <p class="text-gray-700 mb-4">
-                    Ao apresentar os resultados, o foco deve ser nas evidências de que a Articula está entregando sua promessa de "fortalecer artistas como profissionais, criando um espaço seguro e potente".
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
-                        <h3 class="font-bold text-indigo-800 mb-1">Visão Geral do Onboarding</h3>
-                        <p class="text-sm text-gray-700">Demonstre quantos membros foram bem-sucedidos em seus primeiros passos e entenderam as regras da comunidade.</p>
-                    </div>
-                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
-                        <h3 class="font-bold text-indigo-800 mb-1">Sinais de Engajamento</h3>
-                        <p class="text-sm text-gray-700">Destaque que os membros não estão apenas entrando, mas também interagindo ativamente (vital para o "lugar seguro e colaborativo").</p>
-                    </div>
-                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
-                        <h3 class="font-bold text-indigo-800 mb-1">Utilização do Valor</h3>
-                        <p class="text-sm text-gray-700">Apresente dados que confirmam que os "entregáveis" chave (como o Banco de Preços) estão sendo consumidos e gerando valor prático.</p>
-                    </div>
-                    <div class="bg-indigo-100 p-4 rounded-lg shadow-inner">
-                        <h3 class="font-bold text-indigo-800 mb-1">Crescimento da Base</h3>
-                        <p class="text-sm text-gray-700">O tamanho inicial da comunidade é a base que valida as estratégias de lançamento e aquisição.</p>
+        <div class="dashboard-grid">
+            <!-- 1. Visão Geral -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">1.</span> Visão Geral</h2>
+                    <div class="card-icon icon-overview">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12C15 11.2044 14.6839 10.4413 14.1213 9.87868C13.5587 9.31607 12.7956 9 12 9C11.2044 9 10.4413 9.31607 9.87868 9.87868C9.31607 10.4413 9 11.2044 9 12Z" stroke="white" stroke-width="2"/>
+                            <path d="M2 12C2 12 5 6 12 6C19 6 22 12 22 12C22 12 19 18 12 18C5 18 2 12 2 12Z" stroke="white" stroke-width="2"/>
+                        </svg>
                     </div>
                 </div>
-
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">65</div>
+                        <div class="metric-label">Total de membros</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">65</div>
+                        <div class="metric-label">Membros ativos 30d</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value highlight">100%</div>
+                        <div class="metric-label">MAU30d</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">40</div>
+                        <div class="metric-label">Membros ativos diários 30 dias</div>
+                    </div>
+                </div>
+                <h3 class="section-title">Visão Geral - Detalhes</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Dia e horário mais populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Distribuição de membros por país
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Espaços populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Publicações populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Principais membros
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Início de postagens
+                    </li>
+                </ul>
             </div>
 
-        </div> <!-- Fim do Container Grid -->
+            <!-- 2. Membros -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">2.</span> Membros</h2>
+                    <div class="card-icon icon-members">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="section-title">Análise de Membros</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Dia e hora populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Distribuição de membros por país
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Principais membros
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Comentaristas ativos
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Criadores de publicação
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Mais apreciados
+                    </li>
+                </ul>
+            </div>
 
-    </div> <!-- Fim do Container Principal -->
+            <!-- 3. Site -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">3.</span> Site</h2>
+                    <div class="card-icon icon-site">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12H22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="status-message status-warning">
+                    <strong>Status:</strong> Sem informação disponível no momento
+                </div>
+                <h3 class="section-title">Métricas Potenciais</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Tráfego do site
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Fontes de aquisição
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Taxa de conversão
+                    </li>
+                </ul>
+            </div>
 
+            <!-- 4. Espaços -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">4.</span> Espaços</h2>
+                    <div class="card-icon icon-spaces">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 9H21M7 15H17M5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="section-title">Análise de Espaços</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Espaços populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Postagens do Espaço
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Comentários do Espaço
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 5. Publicações e comentários -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">5.</span> Publicações e comentários</h2>
+                    <div class="card-icon icon-content">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">232</div>
+                        <div class="metric-label">Total de publicações</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">3.276</div>
+                        <div class="metric-label">Total de comentários</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value highlight">80%</div>
+                        <div class="metric-label">Postagens de membros</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">17.735</div>
+                        <div class="metric-label">Total de visualizações de postagens</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">7.759</div>
+                        <div class="metric-label">Visualizações de postagens de membros exclusivos</div>
+                    </div>
+                </div>
+                <h3 class="section-title">Análise de Conteúdo</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Postagens populares
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Novas publicações
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Comentários populares
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 6. Mensagens -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">6.</span> Mensagens</h2>
+                    <div class="card-icon icon-messages">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="status-message status-info">
+                    <strong>Ação necessária:</strong> Confirmar relevância das métricas de mensagens
+                </div>
+                <h3 class="section-title">Métricas Potenciais</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Mensagens trocadas
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Conversas ativas
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Taxa de resposta
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 7. Dispositivos -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">7.</span> Dispositivos</h2>
+                    <div class="card-icon icon-devices">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 18H12.01M8 21H16C17.1046 21 18 20.1046 18 19V5C18 3.89543 17.1046 3 16 3H8C6.89543 3 6 3.89543 6 5V19C6 20.1046 6.89543 21 8 21Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="section-title">Distribuição por Dispositivos</h3>
+                <div class="device-list">
+                    <div class="device-item">
+                        <div class="device-icon">📱</div>
+                        <div class="device-value">56</div>
+                        <div class="device-label">Dispositivos móveis da web</div>
+                    </div>
+                    <div class="device-item">
+                        <div class="device-icon">🍏</div>
+                        <div class="device-value">35</div>
+                        <div class="device-label">Dispositivos iOS</div>
+                    </div>
+                    <div class="device-item">
+                        <div class="device-icon">🤖</div>
+                        <div class="device-value">23</div>
+                        <div class="device-label">Dispositivos Android</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Eventos -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">8.</span> Eventos</h2>
+                    <div class="card-icon icon-events">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 7V3M16 7V3M7 11H17M5 21H19C20.1046 21 21 20.1046 21 19V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V19C3 20.1046 3.89543 21 5 21Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="status-message status-info">
+                    <strong>Ação necessária:</strong> Confirmar se há informações disponíveis do ZOOM
+                </div>
+                <h3 class="section-title">Métricas de Eventos</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Participação em eventos
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Taxa de comparecimento
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Feedback dos participantes
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 9. Pagamentos -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">9.</span> Pagamentos</h2>
+                    <div class="card-icon icon-payments">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 10H23" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="status-message status-na">
+                    <strong>Status:</strong> Não se aplica a esta comunidade
+                </div>
+            </div>
+
+            <!-- 10. Cursos -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><span class="card-number">10.</span> Cursos</h2>
+                    <div class="card-icon icon-courses">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 14L21 9L12 4L3 9L12 14Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 14L18.159 10.531C18.6986 10.2084 19.3673 10.1754 19.936 10.443C20.783 10.841 21.167 11.799 20.769 12.646C20.628 12.925 20.405 13.154 20.13 13.303L12 18L3.87001 13.303C3.132 12.861 2.861 11.932 3.303 11.194C3.452 10.919 3.681 10.696 3.96001 10.555L12 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="status-message status-info">
+                    <strong>Ação necessária:</strong> Verificar quais métricas são relevantes
+                </div>
+                <h3 class="section-title">Métricas Potenciais</h3>
+                <ul class="analysis-list">
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Inscrições em cursos
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Conclusão de módulos
+                    </li>
+                    <li class="analysis-item">
+                        <div class="bullet"></div>
+                        Avaliações e feedback
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
